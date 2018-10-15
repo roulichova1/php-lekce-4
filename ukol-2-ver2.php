@@ -24,19 +24,36 @@
         </thead>
         
 <?php
-$handle = fopen('objednavky.csv', 'r');
+$handle = fopen('objednavky-test.csv', 'r');
 if ($handle) {
     while (($line = fgets($handle, 1000)) !== false) {
         $row = explode(';', $line);
-        echo "<tr>
-              <td>$row[0]</td>
-              <td>$row[2]</td>
-              <td>$row[3]</td>
-              <td>$row[1]</td>
-              </tr>";
+        echo "<tr>";
+        if (isset($row[0]) && $row[0]) {
+           echo "<td>$row[0]</td>";
+        } else {
+            echo "<td>N/A</td>";
+             }
+        if (isset($row[3]) && $row[3] && strlen($row[3])>2) { //bez toho středníku na konci to úplně nefunguje,tak proto navíc takhle "na prasáka" :-)
+           echo "<td>$row[3]</td>";
+        }  else {
+            echo "<td>N/A</td>";
+             }
+        if (isset($row[2]) && $row[2]) {
+           echo "<td>$row[2]</td>";
+        } else {
+            echo "<td>N/A</td>";
+             }
+        if (isset($row[1]) && $row[1]) {
+           echo "<td>$row[1]</td>";
+        } else {
+            echo "<td>N/A</td>";
+             }        
+        echo "</tr>";
     }
     fclose($handle);
 }
+
 ?>
         
     </table>
